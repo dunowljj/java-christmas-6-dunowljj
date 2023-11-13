@@ -1,7 +1,9 @@
 package christmas.domain.planner;
 
+import christmas.domain.Day;
 import christmas.domain.policy.DiscountPolicy;
 import christmas.domain.policy.PresentPolicy;
+import christmas.view.InputView;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class Planner23_12 implements EventPlanner {
 
     @Override
     public void makePlan() {
-
+        Day day = InputView.readVisitDay();
+        System.out.println(day);
     }
 }
