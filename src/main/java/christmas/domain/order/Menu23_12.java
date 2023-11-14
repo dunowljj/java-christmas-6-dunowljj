@@ -2,6 +2,10 @@ package christmas.domain.order;
 
 import christmas.constants.KindOfMenu;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import static christmas.constants.KindOfMenu.*;
 
 public enum Menu23_12 implements Menu {
@@ -25,15 +29,31 @@ public enum Menu23_12 implements Menu {
 
     private static final String DELIMITER = ",";
     private static final String EMPTY = "";
+    private static final String IS_NOT_EXIST_MENU = "존재하지 않는 메뉴입니다.";
 
     private final String name;
     private final String price;
     private final KindOfMenu kindOfMenu;
 
+    private static final Map<String, Menu> NAME_DICTIONARY = new HashMap<>();
+
+    static {
+        Arrays.stream(values())
+                .forEach((menu) -> NAME_DICTIONARY.put(menu.name, menu));
+    }
+
     Menu23_12(String name, String price, KindOfMenu kindOfMenu) {
         this.name = name;
         this.price = price;
         this.kindOfMenu = kindOfMenu;
+    }
+
+    public static Menu from(String name) {
+        if (NAME_DICTIONARY.containsKey(name)) {
+            return NAME_DICTIONARY.get(name);
+        }
+
+        throw new IllegalArgumentException(IS_NOT_EXIST_MENU);
     }
 
     @Override

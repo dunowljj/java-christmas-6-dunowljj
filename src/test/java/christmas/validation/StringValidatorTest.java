@@ -78,4 +78,22 @@ public class StringValidatorTest {
                         .shouldNotEndWith(DELIMITER)
         ).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"fas","a131","@#1"," "})
+    public void 숫자_변환_실패_시_IllegalArgumentException을_던진다(String cannotBeNumber) throws Exception {
+        //when, then
+        assertThatThrownBy(() ->
+                StringValidator.that(cannotBeNumber).shouldBeNumberFormat()
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123","-1","59","100"})
+    public void 숫자_변환_성공(String canBeNumber) throws Exception {
+        //when, then
+        assertThatNoException().isThrownBy(() ->
+                StringValidator.that(canBeNumber).shouldBeNumberFormat()
+        );
+    }
 }
