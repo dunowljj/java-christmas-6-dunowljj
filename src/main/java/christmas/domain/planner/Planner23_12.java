@@ -5,6 +5,7 @@ import christmas.domain.Day;
 import christmas.domain.policy.DiscountPolicy;
 import christmas.domain.policy.PresentPolicy;
 import christmas.view.InputView;
+import christmas.view.OutputView;
 import christmas.view.util.Catcher;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class Planner23_12 implements EventPlanner {
     }
 
     private Day getVisitDay() {
+        OutputView.printWelcome();
+
         return Catcher.retryWhenException(ErrorMessage.INVALID_DATE, () -> {
             int value = InputView.readVisitDay();
             return new Day(value);
