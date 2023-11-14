@@ -16,4 +16,8 @@ public class MenuCount {
 
         this.count = count;
     }
+
+    public int getCount() {
+        return count;
+    }
 }

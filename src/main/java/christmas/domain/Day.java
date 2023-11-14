@@ -13,4 +13,8 @@ public class Day {
         IntValidator.that(day).shouldInRange(MONTH_START_DAY.getValue(), MONTH_END_DAY.getValue());
         this.day = day;
     }
+
+    public int getDay() {
+        return day;
+    }
 }

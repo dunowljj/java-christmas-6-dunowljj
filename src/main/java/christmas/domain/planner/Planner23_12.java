@@ -5,6 +5,8 @@ import christmas.domain.Day;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.DiscountPolicy;
 import christmas.domain.policy.PresentPolicy;
+import christmas.dto.response.DayResponse;
+import christmas.dto.response.OrdersResponse;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.view.util.Catcher;
@@ -32,6 +34,9 @@ public class Planner23_12 implements EventPlanner {
     public void makePlan() {
         Day visitDay = getVisitDay();
         Orders orders = getOrders();
+
+        outputView.announceCanPreviewBenefits(DayResponse.of(visitDay));
+        outputView.pintOrderMenus(OrdersResponse.from(orders));
     }
 
     private Day getVisitDay() {

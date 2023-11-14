@@ -19,6 +19,14 @@ public class Order {
         this.count = new MenuCount(split[1]);
     }
 
+    public String getMenuName() {
+        return menu.getName();
+    }
+
+    public int getCount() {
+        return count.getCount();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

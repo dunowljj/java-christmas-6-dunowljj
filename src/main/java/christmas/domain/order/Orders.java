@@ -24,4 +24,8 @@ public class Orders {
         CollectionValidator.that(orders).shouldNotHasDuplicatedElement();
         this.orders = orders;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 }
