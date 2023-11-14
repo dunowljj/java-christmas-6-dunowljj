@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.validation.CollectionValidator;
 import christmas.validation.StringValidator;
 
 import java.util.Arrays;
@@ -16,8 +17,11 @@ public class Orders {
                 .shouldNotStartWith(ORDER_DELIMITER)
                 .shouldNotEndWith(ORDER_DELIMITER);
 
-        this.orders = Arrays.stream(input.split(ORDER_DELIMITER))
+        List<Order> orders = Arrays.stream(input.split(ORDER_DELIMITER))
                 .map(Order::new)
                 .toList();
+
+        CollectionValidator.that(orders).shouldNotHasDuplicatedElement();
+        this.orders = orders;
     }
 }

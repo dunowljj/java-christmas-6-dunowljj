@@ -5,6 +5,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static christmas.constants.Planner23_12Config.MONTH_END_DAY;
 import static christmas.constants.Planner23_12Config.MONTH_START_DAY;
+import static christmas.validation.IntValidator.NOT_SAME_NUMBER;
 import static christmas.validation.IntValidator.OUT_OF_RANGE;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -27,5 +28,24 @@ public class IntValidatorTest {
         //when, then
         assertThatNoException().isThrownBy(() ->
                 IntValidator.that(outRangeNum).shouldInRange(MONTH_START_DAY.getValue(), MONTH_END_DAY.getValue()));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 10, 32, 1_000_000})
+    public void 주어진_숫자와_다르면_IllegalArgumentException을_던진다(int differentNumber) throws Exception {
+        //when, then
+        assertThatThrownBy(() ->
+                IntValidator.that(differentNumber).shouldSameWith(differentNumber + 1))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(NOT_SAME_NUMBER);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 10, 32, 1_000_000})
+    public void 주어진_숫자와_같으면_아무일도_일어나지_않는다(int sameNumber) throws Exception {
+        //when, then
+        assertThatNoException().isThrownBy(() ->
+                IntValidator.that(sameNumber).shouldSameWith(sameNumber)
+        );
     }
 }
