@@ -8,6 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringValidatorTest {
 
+    public static final String DELIMITER = ",";
+
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  ", "\t", "\n"})
     public void 공백문자이면_IllegalArgumentException을_던진다(String empty) throws Exception {
@@ -38,5 +40,33 @@ public class StringValidatorTest {
         //when, then
         assertThatNoException().isThrownBy(() ->
                 StringValidator.that(string).shouldNotIncludeSpace());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {",티본스테이크-1", ",티본스테이크-1,", ", ", ","})
+    public void 문자_맨_앞에_특정_구분자가_있다면_IllegalArgumentException을_던진다(String string) throws Exception {
+        //when, then
+        assertThatThrownBy(() ->
+                StringValidator.that(string).shouldNotStartWith(DELIMITER));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"티본스테이크-1,"," ,", DELIMITER})
+    public void 문자_맨_뒤에_특정_구분자가_있다면_IllegalArgumentException을_던진다(String string) throws Exception {
+        //when, then
+        assertThatThrownBy(() ->
+                StringValidator.that(string).shouldNotEndWith(DELIMITER));
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"티본스테이크-1,",",티본스테이크-1,",",티본스테이크-1,", ","})
+    public void 문자_양끝중_어디든_특정_구분자가_있다면_IllegalArgumentException을_던진다(String string) throws Exception {
+        //when, then
+        assertThatThrownBy(() ->
+                StringValidator.that(string)
+                        .shouldNotStartWith(DELIMITER)
+                        .shouldNotEndWith(DELIMITER)
+        );
     }
 }

@@ -10,7 +10,11 @@ public class Orders {
     private final List<Order> orders;
 
     public Orders(String input) {
-        StringValidator.that(input).shouldNotIncludeSpace();
+        StringValidator.that(input)
+                .shouldNotBlank()
+                .shouldNotIncludeSpace()
+                .shouldNotStartWith(ORDER_DELIMITER)
+                .shouldNotEndWith(ORDER_DELIMITER);
 
         this.orders = Arrays.stream(input.split(ORDER_DELIMITER))
                 .map(Order::new)
