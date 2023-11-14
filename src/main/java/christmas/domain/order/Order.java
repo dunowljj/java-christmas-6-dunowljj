@@ -42,4 +42,8 @@ public class Order {
         }
         return 0;
     }
+
+    public long calculateOrderAmount() {
+         return count.multiple(menu.getNumericPrice());
+    }
 }

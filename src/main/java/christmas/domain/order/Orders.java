@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.domain.TotalOrderAmount;
 import christmas.validation.CollectionValidator;
 import christmas.validation.StringValidator;
 
@@ -27,5 +28,14 @@ public class Orders {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    public TotalOrderAmount makeTotal() {
+        Long sum = orders.stream()
+                .map(Order::calculateOrderAmount)
+                .reduce(Long::sum)
+                .orElse(0L);
+
+        return new TotalOrderAmount(sum);
     }
 }

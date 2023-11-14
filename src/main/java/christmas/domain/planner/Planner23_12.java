@@ -2,6 +2,7 @@ package christmas.domain.planner;
 
 import christmas.constants.ErrorMessage;
 import christmas.domain.Day;
+import christmas.domain.TotalOrderAmount;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.DiscountPolicy;
 import christmas.domain.policy.PresentPolicy;
@@ -37,18 +38,20 @@ public class Planner23_12 implements EventPlanner {
 
         outputView.announceCanPreviewBenefits(DayResponse.of(visitDay));
         outputView.pintOrderMenus(OrdersResponse.from(orders));
+
+        TotalOrderAmount totalOrderAmount = orders.makeTotal();
     }
 
     private Day getVisitDay() {
         outputView.printWelcome();
-        return Catcher.retryWhenException(ErrorMessage.INVALID_DATE, () -> {
-            return inputView.readVisitDay();
-        });
+        return Catcher.retryWhenException(
+                ErrorMessage.INVALID_DATE, inputView::readVisitDay
+        );
     }
 
     private Orders getOrders() {
-        return Catcher.retryWhenException(ErrorMessage.INVALID_ORDER, () -> {
-            return inputView.readOrders();
-        });
+        return Catcher.retryWhenException(
+                ErrorMessage.INVALID_ORDER, inputView::readOrders
+        );
     }
 }

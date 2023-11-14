@@ -20,4 +20,8 @@ public class MenuCount {
     public int getCount() {
         return count;
     }
+
+    public long multiple(int numericPrice) {
+        return (long) count * numericPrice;
+    }
 }

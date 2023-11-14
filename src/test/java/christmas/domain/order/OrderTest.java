@@ -63,4 +63,18 @@ public class OrderTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(NOT_SAME_NUMBER);
     }
+
+    @Test
+    public void Order_주문금액_계산() throws Exception {
+        //given
+        int count = 1;
+        int price = BARBECUE_RIPS.getNumericPrice();
+
+        //when
+        long orderAmount = 바베큐1개.calculateOrderAmount();
+        long actual = (long) count * price;
+
+        //then
+        assertThat(orderAmount).isEqualTo(actual);
+    }
 }
