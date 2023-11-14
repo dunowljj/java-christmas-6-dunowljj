@@ -1,6 +1,11 @@
 package christmas.view;
 
+import christmas.domain.Day;
+import christmas.domain.order.Orders;
+
 public interface InputView {
 
-    int readVisitDay();
+    Day readVisitDay();
+
+    Orders readOrders();
 }

@@ -2,6 +2,7 @@ package christmas.domain.planner;
 
 import christmas.constants.ErrorMessage;
 import christmas.domain.Day;
+import christmas.domain.order.Orders;
 import christmas.domain.policy.DiscountPolicy;
 import christmas.domain.policy.PresentPolicy;
 import christmas.view.InputView;
@@ -30,14 +31,19 @@ public class Planner23_12 implements EventPlanner {
     @Override
     public void makePlan() {
         Day visitDay = getVisitDay();
+        Orders orders = getOrders();
     }
 
     private Day getVisitDay() {
         outputView.printWelcome();
-
         return Catcher.retryWhenException(ErrorMessage.INVALID_DATE, () -> {
-            int value = inputView.readVisitDay();
-            return new Day(value);
+            return inputView.readVisitDay();
+        });
+    }
+
+    private Orders getOrders() {
+        return Catcher.retryWhenException(ErrorMessage.INVALID_ORDER, () -> {
+            return inputView.readOrders();
         });
     }
 }
