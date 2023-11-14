@@ -14,10 +14,17 @@ public class Planner23_12 implements EventPlanner {
 
     private final List<DiscountPolicy> discountPolicies;
     private final List<PresentPolicy> presentPolicies;
+    private final OutputView outputView;
+    private final InputView inputView;
 
-    public Planner23_12(List<DiscountPolicy> discountPolicies, List<PresentPolicy> presentPolicies) {
+    public Planner23_12(
+            List<DiscountPolicy> discountPolicies, List<PresentPolicy> presentPolicies,
+            OutputView outputView, InputView inputView
+    ) {
         this.discountPolicies = discountPolicies;
         this.presentPolicies = presentPolicies;
+        this.outputView = outputView;
+        this.inputView = inputView;
     }
 
     @Override
@@ -26,10 +33,10 @@ public class Planner23_12 implements EventPlanner {
     }
 
     private Day getVisitDay() {
-        OutputView.printWelcome();
+        outputView.printWelcome();
 
         return Catcher.retryWhenException(ErrorMessage.INVALID_DATE, () -> {
-            int value = InputView.readVisitDay();
+            int value = inputView.readVisitDay();
             return new Day(value);
         });
     }
