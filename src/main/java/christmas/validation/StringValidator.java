@@ -28,4 +28,10 @@ public class StringValidator {
             throw new IllegalArgumentException(CANNOT_CONVERT_TO_NUMBER);
         }
     }
+
+    public void shouldNotIncludeSpace() {
+        if (value.chars().anyMatch(Character::isWhitespace)) {
+            throw new IllegalArgumentException(EMPTY_INPUT);
+        }
+    }
 }
