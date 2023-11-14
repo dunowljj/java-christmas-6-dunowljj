@@ -5,6 +5,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static christmas.constants.Planner23_12Config.MONTH_END_DAY;
 import static christmas.constants.Planner23_12Config.MONTH_START_DAY;
+import static christmas.validation.IntValidator.OUT_OF_RANGE;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -15,7 +16,9 @@ public class IntValidatorTest {
     public void 숫자_범위_벗어나면_IllegalArgumentException을_던진다(int outRangeNum) throws Exception {
         //when, then
         assertThatThrownBy(() ->
-                IntValidator.that(outRangeNum).shouldInRange(MONTH_START_DAY.getValue(), MONTH_END_DAY.getValue()));
+                IntValidator.that(outRangeNum).shouldInRange(MONTH_START_DAY.getValue(), MONTH_END_DAY.getValue()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(OUT_OF_RANGE);
     }
 
     @ParameterizedTest
