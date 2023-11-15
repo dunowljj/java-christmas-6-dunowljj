@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EventPolicyManager<T extends EventMarketingPolicy> {
 
-    private final List<T> eventPolicies;
+    protected final List<T> eventPolicies;
 
     public EventPolicyManager(List<T> eventPolicies) {
         this.eventPolicies = eventPolicies;

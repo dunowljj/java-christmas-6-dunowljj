@@ -2,11 +2,14 @@ package christmas.config;
 
 import christmas.domain.planner.EventPlanner;
 import christmas.domain.planner.Planner23_12;
-import christmas.domain.policy.EventPolicyManager;
-import christmas.domain.policy.badge.EventBadgePolicy;
-import christmas.domain.policy.discount.EventDateDiscountPolicy;
-import christmas.domain.policy.discount.EventOrderDiscountPolicy;
-import christmas.domain.policy.present.EventPresentPolicy;
+import christmas.domain.policy.badge.EventTotalAmountBadgePolicy;
+import christmas.domain.policy.badge.EventTotalAmountBadgePolicyManager;
+import christmas.domain.policy.discount.date.EventDateDiscountPolicy;
+import christmas.domain.policy.discount.date.EventDateDiscountPolicyManager;
+import christmas.domain.policy.discount.order.EventOrderDiscountPolicy;
+import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
+import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
+import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
 import christmas.view.InputView;
 import christmas.view.InputView23_12;
 import christmas.view.OutputView;
@@ -37,20 +40,20 @@ public class PlannerConfig {
         return new OutputView23_12();
     }
 
-    private EventPolicyManager<EventOrderDiscountPolicy> eventOrderPolicyManager() {
-        return new EventPolicyManager<>(eventOrderPolicies());
+    private EventOrderDiscountPolicyManager eventOrderPolicyManager() {
+        return new EventOrderDiscountPolicyManager(eventOrderPolicies());
     }
 
-    private EventPolicyManager<EventDateDiscountPolicy> eventDateDiscountManger() {
-        return new EventPolicyManager<>(eventDateDiscountPolicies());
+    private EventDateDiscountPolicyManager eventDateDiscountManger() {
+        return new EventDateDiscountPolicyManager(eventDateDiscountPolicies());
     }
 
-    private EventPolicyManager<EventPresentPolicy> eventPresentPolicyManger() {
-        return new EventPolicyManager<>(eventPresentPolicies());
+    private EventTotalAmountPresentPolicyManager eventPresentPolicyManger() {
+        return new EventTotalAmountPresentPolicyManager(eventPresentPolicies());
     }
 
-    private EventPolicyManager<EventBadgePolicy> eventBadgePolicyManger() {
-        return new EventPolicyManager<>(eventBadgePolicies());
+    private EventTotalAmountBadgePolicyManager eventBadgePolicyManger() {
+        return new EventTotalAmountBadgePolicyManager(eventBadgePolicies());
     }
 
     private List<EventOrderDiscountPolicy> eventOrderPolicies() {
@@ -61,11 +64,11 @@ public class PlannerConfig {
         return List.of();
     }
 
-    private List<EventPresentPolicy> eventPresentPolicies() {
+    private List<EventTotalAmountPresentPolicy> eventPresentPolicies() {
         return List.of();
     }
 
-    private List<EventBadgePolicy> eventBadgePolicies() {
+    private List<EventTotalAmountBadgePolicy> eventBadgePolicies() {
         return List.of();
     }
 

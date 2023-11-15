@@ -1,12 +1,12 @@
 package christmas.domain.policy.badge;
 
-import christmas.domain.TotalBenefitAmount;
+import christmas.domain.TotalOrderAmount;
 import christmas.domain.benefit.Badges;
 
-public class ChristmasEventBadgePolicy implements EventBadgePolicy {
+public class ChristmasEventBadgePolicy implements EventBadgePolicy<TotalOrderAmount, Badges> {
 
     @Override
-    public Badges findBadges(TotalBenefitAmount totalBenefitAmount) {
+    public Badges findBadges(TotalOrderAmount totalOrderAmount) {
         return null;
     }
 }

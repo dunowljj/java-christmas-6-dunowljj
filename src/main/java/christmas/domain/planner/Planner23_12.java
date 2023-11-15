@@ -4,11 +4,10 @@ import christmas.constants.ErrorMessage;
 import christmas.domain.Day;
 import christmas.domain.TotalOrderAmount;
 import christmas.domain.order.Orders;
-import christmas.domain.policy.EventPolicyManager;
-import christmas.domain.policy.badge.EventBadgePolicy;
-import christmas.domain.policy.discount.EventDateDiscountPolicy;
-import christmas.domain.policy.discount.EventOrderDiscountPolicy;
-import christmas.domain.policy.present.EventPresentPolicy;
+import christmas.domain.policy.badge.EventTotalAmountBadgePolicyManager;
+import christmas.domain.policy.discount.date.EventDateDiscountPolicyManager;
+import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
+import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
 import christmas.view.InputView;
@@ -19,25 +18,25 @@ public class Planner23_12 implements EventPlanner {
 
     private final OutputView outputView;
     private final InputView inputView;
-    private final EventPolicyManager<EventOrderDiscountPolicy> eventOrderDiscountPolicyManager;
-    private final EventPolicyManager<EventDateDiscountPolicy> eventDateDiscountPolicyManager;
-    private final EventPolicyManager<EventPresentPolicy> eventPresentPolicyManager;
-    private final EventPolicyManager<EventBadgePolicy> eventBadgePolicyManager;
+    private final EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager;
+    private final EventDateDiscountPolicyManager eventDateDiscountPolicyManager;
+    private final EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager;
+    private final EventTotalAmountBadgePolicyManager eventTotalAmountBadgePolicyManager;
 
     public Planner23_12(
             OutputView outputView,
             InputView inputView,
-            EventPolicyManager<EventOrderDiscountPolicy> eventOrderDiscountPolicyManager,
-            EventPolicyManager<EventDateDiscountPolicy> eventDateDiscountPolicyManager,
-            EventPolicyManager<EventPresentPolicy> eventPresentPolicyManager,
-            EventPolicyManager<EventBadgePolicy> eventBadgePolicyManager
+            EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager,
+            EventDateDiscountPolicyManager eventDateDiscountPolicyManager,
+            EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager,
+            EventTotalAmountBadgePolicyManager eventTotalAmountBadgePolicyManager
     ) {
         this.outputView = outputView;
         this.inputView = inputView;
         this.eventOrderDiscountPolicyManager = eventOrderDiscountPolicyManager;
         this.eventDateDiscountPolicyManager = eventDateDiscountPolicyManager;
-        this.eventPresentPolicyManager = eventPresentPolicyManager;
-        this.eventBadgePolicyManager = eventBadgePolicyManager;
+        this.eventTotalAmountPresentPolicyManager = eventTotalAmountPresentPolicyManager;
+        this.eventTotalAmountBadgePolicyManager = eventTotalAmountBadgePolicyManager;
     }
 
     @Override

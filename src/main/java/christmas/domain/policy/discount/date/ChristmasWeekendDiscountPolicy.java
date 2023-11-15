@@ -1,11 +1,11 @@
-package christmas.domain.policy.discount;
+package christmas.domain.policy.discount.date;
 
 import java.time.LocalDate;
 
 public class ChristmasWeekendDiscountPolicy implements EventDateDiscountPolicy {
 
     @Override
-    public long calculateDiscount(LocalDate localDate) {
-        return 0;
+    public Long calculateDiscount(LocalDate localDate) {
+        return null;
     }
 }
