@@ -1,11 +1,21 @@
 package christmas.domain.policy.discount.date;
 
+import christmas.domain.order.Orders;
+
 import java.time.LocalDate;
 
-public class ChristmasWeekDayDiscountPolicy implements EventDateDiscountPolicy {
+import static christmas.util.dateUtils.isWeekday;
+
+public class ChristmasWeekDayDiscountPolicy implements EventDateAndOrderDiscountPolicy {
+
+    public static final long DISCOUNT_PER_DESSERT_COUNT = 2023;
+    public static final long NO_DISCOUNT = 0;
 
     @Override
-    public Long calculateDiscount(LocalDate localDate) {
-        return null;
+    public Long calculateDiscount(Orders orders, LocalDate localDate) {
+        if (isWeekday(localDate)) {
+            return orders.countDessert() * DISCOUNT_PER_DESSERT_COUNT;
+        }
+        return NO_DISCOUNT;
     }
 }

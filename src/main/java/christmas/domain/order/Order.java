@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.constants.KindOfMenu;
 import christmas.validation.IntValidator;
 
 import java.util.Objects;
@@ -17,6 +18,18 @@ public class Order {
 
         this.menu =  Menu.findMenuBy(split[0]);
         this.count = new MenuCount(split[1]);
+    }
+
+    public long calculateOrderAmount() {
+        return count.multiple(menu.getNumericPrice());
+    }
+
+    public boolean isDessert() {
+        return menu.getKindOfMenu() == KindOfMenu.DESSERT;
+    }
+
+    public boolean isMainMenu() {
+        return menu.getKindOfMenu() == KindOfMenu.MAIN;
     }
 
     public String getMenuName() {
@@ -41,9 +54,5 @@ public class Order {
             return menu.hashCode();
         }
         return 0;
-    }
-
-    public long calculateOrderAmount() {
-         return count.multiple(menu.getNumericPrice());
     }
 }

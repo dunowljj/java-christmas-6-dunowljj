@@ -38,4 +38,16 @@ public class Orders {
 
         return new TotalOrderAmount(sum);
     }
+
+    public long countDessert() {
+        return orders.stream()
+                .filter((order -> order.isDessert()))
+                .count();
+    }
+
+    public long countMainMenu() {
+        return orders.stream()
+                .filter((order -> order.isMainMenu()))
+                .count();
+    }
 }
