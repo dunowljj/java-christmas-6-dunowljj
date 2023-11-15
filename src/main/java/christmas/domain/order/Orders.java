@@ -42,12 +42,16 @@ public class Orders {
     public long countDessert() {
         return orders.stream()
                 .filter((order -> order.isDessert()))
-                .count();
+                .mapToLong(order -> order.getCount())
+                .reduce(Long::sum)
+                .orElse(0L);
     }
 
     public long countMainMenu() {
         return orders.stream()
                 .filter((order -> order.isMainMenu()))
-                .count();
+                .mapToLong(order -> order.getCount())
+                .reduce(Long::sum)
+                .orElse(0L);
     }
 }

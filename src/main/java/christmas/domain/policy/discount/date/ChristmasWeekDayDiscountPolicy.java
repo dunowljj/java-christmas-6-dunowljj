@@ -14,6 +14,7 @@ public class ChristmasWeekDayDiscountPolicy implements EventDateAndOrderDiscount
     @Override
     public Long calculateDiscount(Orders orders, LocalDate localDate) {
         if (isWeekday(localDate)) {
+            System.out.println(orders.countDessert());
             return orders.countDessert() * DISCOUNT_PER_DESSERT_COUNT;
         }
         return NO_DISCOUNT;

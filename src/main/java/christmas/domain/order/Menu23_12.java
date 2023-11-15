@@ -57,6 +57,16 @@ public enum Menu23_12 implements Menu {
     }
 
     @Override
+    public boolean isDessert() {
+        return this.kindOfMenu == DESSERT;
+    }
+
+    @Override
+    public boolean isMainMenu() {
+        return this.kindOfMenu == MAIN;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -70,9 +80,9 @@ public enum Menu23_12 implements Menu {
     public String getPrice() {
         return price;
     }
-
     @Override
     public KindOfMenu getKindOfMenu() {
         return kindOfMenu;
     }
+
 }

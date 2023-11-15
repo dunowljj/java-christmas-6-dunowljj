@@ -8,6 +8,10 @@ public interface Menu {
         return MenuFinder.findMenuBy(key);
     }
 
+    boolean isDessert();
+
+    boolean isMainMenu();
+
     String getName();
 
     int getNumericPrice();

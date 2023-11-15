@@ -1,6 +1,5 @@
 package christmas.domain.order;
 
-import christmas.constants.KindOfMenu;
 import christmas.validation.IntValidator;
 
 import java.util.Objects;
@@ -25,11 +24,11 @@ public class Order {
     }
 
     public boolean isDessert() {
-        return menu.getKindOfMenu() == KindOfMenu.DESSERT;
+        return menu.isDessert();
     }
 
     public boolean isMainMenu() {
-        return menu.getKindOfMenu() == KindOfMenu.MAIN;
+        return menu.isMainMenu();
     }
 
     public String getMenuName() {

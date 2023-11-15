@@ -1,6 +1,5 @@
-package christmas.policy;
+package christmas.domain.policy.discount.date;
 
-import christmas.domain.policy.discount.date.ChristmasSpecialDiscountPolicy;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
