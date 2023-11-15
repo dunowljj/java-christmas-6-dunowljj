@@ -3,10 +3,13 @@ package christmas.domain.planner;
 import christmas.constants.ErrorMessage;
 import christmas.domain.Day;
 import christmas.domain.TotalOrderAmount;
+import christmas.domain.benefit.Presents;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.badge.EventTotalAmountBadgePolicyManager;
 import christmas.domain.policy.discount.date.EventDateDiscountPolicyManager;
 import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
+import christmas.domain.policy.present.ChristmasChampagnePresentPolicy;
+import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
 import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
@@ -48,6 +51,8 @@ public class Planner23_12 implements EventPlanner {
         outputView.pintOrderMenus(OrdersResponse.from(orders));
 
         TotalOrderAmount totalOrderAmount = orders.makeTotal();
+        EventTotalAmountPresentPolicy presentPolicy = new ChristmasChampagnePresentPolicy();
+        Presents presents = presentPolicy.findPresents(totalOrderAmount);
     }
 
     private Day getVisitDay() {

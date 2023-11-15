@@ -7,4 +7,8 @@ public class TotalOrderAmount {
     public TotalOrderAmount(long totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public boolean isMoreThan(long price) {
+        return totalPrice >= price;
+    }
 }

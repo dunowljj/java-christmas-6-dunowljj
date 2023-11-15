@@ -1,4 +1,4 @@
-package christmas.domain.policy.present;
+package christmas.domain.benefit;
 
 import christmas.domain.order.Menu;
 import christmas.domain.order.MenuCount;
