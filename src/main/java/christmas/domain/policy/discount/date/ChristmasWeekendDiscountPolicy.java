@@ -4,7 +4,7 @@ import christmas.domain.order.Orders;
 
 import java.time.LocalDate;
 
-import static christmas.util.dateUtils.isWeekend;
+import static christmas.util.DateUtils.isWeekend;
 
 public class ChristmasWeekendDiscountPolicy implements EventDateAndOrderDiscountPolicy {
 
