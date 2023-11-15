@@ -1,12 +1,24 @@
 package christmas.domain.policy.badge;
 
-import christmas.domain.TotalOrderAmount;
-import christmas.domain.benefit.Badges;
+import christmas.domain.TotalBenefitAmount;
 
-public class ChristmasEventBadgePolicy implements EventBadgePolicy<TotalOrderAmount, Badges> {
+import static christmas.domain.policy.badge.BadgeRank.*;
+
+public class ChristmasEventBadgePolicy implements EventBadgePolicy<TotalBenefitAmount, BadgeRank> {
 
     @Override
-    public Badges findBadges(TotalOrderAmount totalOrderAmount) {
-        return null;
+    public BadgeRank findBadges(TotalBenefitAmount totalBenefitAmount) {
+        if (totalBenefitAmount.isMoreThan(SANTA.getThreshold())) {
+            return SANTA;
+        }
+
+        if (totalBenefitAmount.isMoreThan(TREE.getThreshold())) {
+            return TREE;
+        }
+        if (totalBenefitAmount.isMoreThan(STAR.getThreshold())) {
+            return STAR;
+        }
+
+        return NONE;
     }
 }

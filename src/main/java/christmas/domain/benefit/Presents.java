@@ -24,6 +24,17 @@ public class Presents {
         return presents.stream();
     }
 
+    public long getBenefitPrice() {
+        return presents.stream()
+                .map(present -> present.getBenefitPrice())
+                .reduce(Long::sum)
+                .orElse(0L);
+    }
+
+    public boolean isEmpty() {
+        return presents.isEmpty();
+    }
+
 
 //    public List<Present> getPresents() {
 //        return presents;

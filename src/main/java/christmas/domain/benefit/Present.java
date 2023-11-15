@@ -13,6 +13,10 @@ public class Present {
         this.menuCount = new MenuCount(count);
     }
 
+    public long getBenefitPrice() {
+        return menu.getNumericPrice() * menuCount.getCount();
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s개", menu.getName(), menuCount);

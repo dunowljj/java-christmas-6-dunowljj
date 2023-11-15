@@ -1,11 +1,17 @@
 package christmas.view;
 
+import christmas.domain.TotalBenefitAmount;
 import christmas.domain.TotalOrderAmount;
+import christmas.domain.benefit.Discount;
 import christmas.domain.benefit.Presents;
+import christmas.domain.policy.badge.BadgeRank;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
 
+import java.util.List;
+
 import static christmas.constants.Planner23_12Config.THIS_MONTH;
+import static christmas.view.util.FormatUtils.toKoreaMoneyFormat;
 
 public class OutputView23_12 implements OutputView {
 
@@ -53,10 +59,44 @@ public class OutputView23_12 implements OutputView {
         System.out.println();
     }
 
+    @Override
+    public void printTotalDetails(List<Discount> totalDiscount) {
+        System.out.println(title("혜택 내역"));
+        System.out.println(buildTotalDetails(totalDiscount));
+        System.out.println();
+    }
+
+    @Override
+    public void printTotalBenefitAmount(TotalBenefitAmount totalBenefitAmount) {
+        System.out.println(title("총혜택 금액"));
+        System.out.println(String.format("-%s원", toKoreaMoneyFormat(totalBenefitAmount.getValue())));
+        System.out.println();
+    }
+    @Override
+    public void printAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice) {
+        System.out.println(title("할인 후 예상 결제 금액"));
+        long expect = totalOrderPriceAmount.getTotalPrice() - totalDiscountPrice;
+        System.out.println(String.format("%s원", toKoreaMoneyFormat(expect)));
+        System.out.println();
+    }
+
+    @Override
+    public void printEventBadge(BadgeRank badge) {
+        System.out.println(title("12월 이벤트 배지"));
+        System.out.println(badge.getName());
+    }
+
     private StringBuilder buildPresentsMessage(Presents presents) {
         StringBuilder result = new StringBuilder();
         presents.stream()
                 .forEach(((present) -> result.append(present).append("\n")));
+        return result;
+    }
+
+    private StringBuilder buildTotalDetails(List<Discount> discounts) {
+        StringBuilder result = new StringBuilder();
+        discounts.stream()
+                .forEach(((discount) -> result.append(discount).append("\n")));
         return result;
     }
 

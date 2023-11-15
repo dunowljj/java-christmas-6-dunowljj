@@ -19,4 +19,8 @@ public class TotalOrderAmount {
         String moneyFormat = toKoreaMoneyFormat(totalPrice);
         return String.format("%s원", moneyFormat);
     }
+
+    public long getTotalPrice() {
+        return totalPrice;
+    }
 }

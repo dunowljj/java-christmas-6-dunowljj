@@ -1,9 +1,14 @@
 package christmas.view;
 
+import christmas.domain.TotalBenefitAmount;
 import christmas.domain.TotalOrderAmount;
+import christmas.domain.benefit.Discount;
 import christmas.domain.benefit.Presents;
+import christmas.domain.policy.badge.BadgeRank;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
+
+import java.util.List;
 
 public interface OutputView {
 
@@ -16,4 +21,12 @@ public interface OutputView {
     void printOrderAmount(TotalOrderAmount totalOrderAmount);
 
     void printPresents(Presents presents);
+
+    void printTotalDetails(List<Discount> totalDiscount);
+
+    void printAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice);
+
+    void printEventBadge(BadgeRank badges);
+
+    void printTotalBenefitAmount(TotalBenefitAmount totalBenefitAmount);
 }
