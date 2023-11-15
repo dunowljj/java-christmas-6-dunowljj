@@ -2,6 +2,7 @@ package christmas.domain.benefit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Presents {
 
@@ -18,6 +19,11 @@ public class Presents {
     public void add(Present present) {
         presents.add(present);
     }
+
+    public Stream<Present> stream() {
+        return presents.stream();
+    }
+
 
 //    public List<Present> getPresents() {
 //        return presents;

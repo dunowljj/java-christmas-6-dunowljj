@@ -51,8 +51,10 @@ public class Planner23_12 implements EventPlanner {
         outputView.pintOrderMenus(OrdersResponse.from(orders));
 
         TotalOrderAmount totalOrderAmount = orders.makeTotal();
+        outputView.printOrderAmount(totalOrderAmount);
         EventTotalAmountPresentPolicy presentPolicy = new ChristmasChampagnePresentPolicy();
         Presents presents = presentPolicy.findPresents(totalOrderAmount);
+        outputView.printPresents(presents);
     }
 
     private Day getVisitDay() {

@@ -28,4 +28,9 @@ public class MenuCount {
     public long multiple(int numericPrice) {
         return (long) count * numericPrice;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(count);
+    }
 }

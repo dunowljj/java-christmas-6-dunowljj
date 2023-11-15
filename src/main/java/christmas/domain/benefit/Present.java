@@ -12,4 +12,9 @@ public class Present {
         this.menu = menu;
         this.menuCount = new MenuCount(count);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s개", menu.getName(), menuCount);
+    }
 }
