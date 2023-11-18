@@ -6,9 +6,9 @@ import christmas.domain.policy.EventPolicyManager;
 
 import java.util.List;
 
-public class EventTotalAmountPresentPolicyManager extends EventPolicyManager<EventTotalAmountPresentPolicy> {
+public class EventTotalAmountPresentPolicyApplier extends EventPolicyManager<EventTotalAmountPresentPolicy> {
 
-    public EventTotalAmountPresentPolicyManager(List<EventTotalAmountPresentPolicy> eventPolicies) {
+    public EventTotalAmountPresentPolicyApplier(List<EventTotalAmountPresentPolicy> eventPolicies) {
         super(eventPolicies);
     }
 

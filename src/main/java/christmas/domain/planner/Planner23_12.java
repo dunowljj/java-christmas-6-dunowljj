@@ -8,11 +8,11 @@ import christmas.domain.benefit.Discount;
 import christmas.domain.benefit.Presents;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.badge.ChristmasEventBadgePolicy;
-import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyManager;
-import christmas.domain.policy.discount.EventDateAndOrderDiscountPolicyManager;
+import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyApplier;
+import christmas.domain.policy.discount.EventDateAndOrderDiscountPolicyApplier;
 import christmas.domain.policy.discount.date.*;
-import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
-import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
+import christmas.domain.policy.discount.order.EventOrderDiscountPolicyApplier;
+import christmas.domain.policy.present.EventTotalAmountPresentPolicyApplier;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
 import christmas.view.InputView;
@@ -30,29 +30,29 @@ public class Planner23_12 implements EventPlanner {
 
     private final OutputView outputView;
     private final InputView inputView;
-    private final EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager;
-    private final EventDateDiscountPolicyManager eventDateDiscountPolicyManager;
-    private final EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager;
-    private final EventTotalBenefitAmountBadgePolicyManager eventTotalBenefitAmountBadgePolicyManager;
+    private final EventOrderDiscountPolicyApplier eventOrderDiscountPolicyApplier;
+    private final EventDateDiscountPolicyApplier eventDateDiscountPolicyApplier;
+    private final EventTotalAmountPresentPolicyApplier eventTotalAmountPresentPolicyApplier;
+    private final EventTotalBenefitAmountBadgePolicyApplier eventTotalBenefitAmountBadgePolicyApplier;
 
-    private final EventDateAndOrderDiscountPolicyManager eventDateAndOrderDiscountPolicyManager;
+    private final EventDateAndOrderDiscountPolicyApplier eventDateAndOrderDiscountPolicyApplier;
 
     public Planner23_12(
             OutputView outputView,
             InputView inputView,
-            EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager,
-            EventDateDiscountPolicyManager eventDateDiscountPolicyManager,
-            EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager,
-            EventTotalBenefitAmountBadgePolicyManager eventTotalBenefitAmountBadgePolicyManager,
-            EventDateAndOrderDiscountPolicyManager eventDateAndOrderDiscountPolicyManager
+            EventOrderDiscountPolicyApplier eventOrderDiscountPolicyApplier,
+            EventDateDiscountPolicyApplier eventDateDiscountPolicyApplier,
+            EventTotalAmountPresentPolicyApplier eventTotalAmountPresentPolicyApplier,
+            EventTotalBenefitAmountBadgePolicyApplier eventTotalBenefitAmountBadgePolicyApplier,
+            EventDateAndOrderDiscountPolicyApplier eventDateAndOrderDiscountPolicyApplier
     ) {
         this.outputView = outputView;
         this.inputView = inputView;
-        this.eventOrderDiscountPolicyManager = eventOrderDiscountPolicyManager;
-        this.eventDateDiscountPolicyManager = eventDateDiscountPolicyManager;
-        this.eventTotalAmountPresentPolicyManager = eventTotalAmountPresentPolicyManager;
-        this.eventTotalBenefitAmountBadgePolicyManager = eventTotalBenefitAmountBadgePolicyManager;
-        this.eventDateAndOrderDiscountPolicyManager = eventDateAndOrderDiscountPolicyManager;
+        this.eventOrderDiscountPolicyApplier = eventOrderDiscountPolicyApplier;
+        this.eventDateDiscountPolicyApplier = eventDateDiscountPolicyApplier;
+        this.eventTotalAmountPresentPolicyApplier = eventTotalAmountPresentPolicyApplier;
+        this.eventTotalBenefitAmountBadgePolicyApplier = eventTotalBenefitAmountBadgePolicyApplier;
+        this.eventDateAndOrderDiscountPolicyApplier = eventDateAndOrderDiscountPolicyApplier;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Planner23_12 implements EventPlanner {
         TotalOrderAmount totalOrderPriceAmount = orders.makeTotal();
         outputView.printOrderPriceAmount(totalOrderPriceAmount);
 
-        Presents presents = eventTotalAmountPresentPolicyManager.applyAll(totalOrderPriceAmount);
+        Presents presents = eventTotalAmountPresentPolicyApplier.applyAll(totalOrderPriceAmount);
         outputView.printPresents(presents);
 
         List<Discount> totalDiscount = getTotalDiscount(orders, nowDate);

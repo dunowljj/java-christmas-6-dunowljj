@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 import static christmas.constants.Planner23_12Config.THIS_MONTH;
 import static christmas.constants.Planner23_12Config.THIS_YEAR;
-import static christmas.domain.policy.discount.date.ChristmasWeekDayDiscountPolicy.*;
 import static christmas.domain.policy.discount.date.ChristmasWeekDayDiscountPolicy.DISCOUNT_PER_DESSERT_COUNT;
+import static christmas.domain.policy.discount.date.ChristmasWeekDayDiscountPolicy.NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChristmasWeekDayDiscountPolicyTest {

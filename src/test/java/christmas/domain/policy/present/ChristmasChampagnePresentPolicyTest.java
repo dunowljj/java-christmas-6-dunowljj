@@ -12,14 +12,13 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ChristmasChampagnePresentPolicyTest {
-    private EventTotalAmountPresentPolicyManager presentPolicyManager;
+    private EventTotalAmountPresentPolicyApplier presentPolicyManager;
 
     @BeforeEach
     public void setUp() {
-        presentPolicyManager = new EventTotalAmountPresentPolicyManager(List.of());
+        presentPolicyManager = new EventTotalAmountPresentPolicyApplier(List.of());
     }
 
     @Test

@@ -13,23 +13,23 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class EventPresentPolicyManagerTest {
+public class EventPresentPolicyApplierTest {
 
-    private EventTotalAmountPresentPolicyManager presentPolicyManager;
+    private EventTotalAmountPresentPolicyApplier presentPolicyApplier;
 
     @BeforeEach
     public void setUp() {
-        presentPolicyManager = new EventTotalAmountPresentPolicyManager(List.of());
+        presentPolicyApplier = new EventTotalAmountPresentPolicyApplier(List.of());
     }
 
     @Test
     public void 샴페인_선물매니저_주입_후_실행시_샴페인이_선물에_담긴다() throws Exception {
         //given
         TotalOrderAmount totalOrderAmount = new TotalOrderAmount(12_0000);
-        presentPolicyManager.addPolicy(new ChristmasChampagnePresentPolicy());
+        presentPolicyApplier.addPolicy(new ChristmasChampagnePresentPolicy());
 
         //when
-        Presents presents = presentPolicyManager.applyAll(totalOrderAmount);
+        Presents presents = presentPolicyApplier.applyAll(totalOrderAmount);
         List<Present> list = (List<Present>) (Reflector.getValue(presents, 0));
 
         Menu menu = (Menu) (Reflector.getValue(list.get(0), 0));

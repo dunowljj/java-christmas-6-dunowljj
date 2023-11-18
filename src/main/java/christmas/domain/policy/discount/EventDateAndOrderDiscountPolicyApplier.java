@@ -5,9 +5,9 @@ import christmas.domain.policy.discount.date.EventDateAndOrderDiscountPolicy;
 
 import java.util.List;
 
-public class EventDateAndOrderDiscountPolicyManager extends EventPolicyManager<EventDateAndOrderDiscountPolicy> {
+public class EventDateAndOrderDiscountPolicyApplier extends EventPolicyManager<EventDateAndOrderDiscountPolicy> {
 
-    public EventDateAndOrderDiscountPolicyManager(List<EventDateAndOrderDiscountPolicy> eventPolicies) {
+    public EventDateAndOrderDiscountPolicyApplier(List<EventDateAndOrderDiscountPolicy> eventPolicies) {
         super(eventPolicies);
     }
 }
