@@ -18,7 +18,7 @@ public interface OutputView {
 
     void announceCanPreviewBenefits(DayResponse dayResponse);
 
-    void printOrderAmount(TotalOrderAmount totalOrderAmount);
+    void printOrderPriceAmount(TotalOrderAmount totalOrderAmount);
 
     void printPresents(Presents presents);
 

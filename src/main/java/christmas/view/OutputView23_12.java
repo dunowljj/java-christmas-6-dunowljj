@@ -46,7 +46,7 @@ public class OutputView23_12 implements OutputView {
     }
 
     @Override
-    public void printOrderAmount(TotalOrderAmount totalOrderAmount) {
+    public void printOrderPriceAmount(TotalOrderAmount totalOrderAmount) {
         System.out.println(title(TITLE_OF_TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT));
         System.out.println(totalOrderAmount);
         System.out.println();

@@ -12,8 +12,6 @@ import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyManager;
 import christmas.domain.policy.discount.EventDateAndOrderDiscountPolicyManager;
 import christmas.domain.policy.discount.date.*;
 import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
-import christmas.domain.policy.present.ChristmasChampagnePresentPolicy;
-import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
 import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
@@ -69,10 +67,8 @@ public class Planner23_12 implements EventPlanner {
         TotalOrderAmount totalOrderPriceAmount = orders.makeTotal();
         outputView.printOrderPriceAmount(totalOrderPriceAmount);
 
-        EventTotalAmountPresentPolicy presentPolicy = new ChristmasChampagnePresentPolicy();
-        Presents presents = presentPolicy.findPresents(totalOrderPriceAmount);
+        Presents presents = eventTotalAmountPresentPolicyManager.applyAll(totalOrderPriceAmount);
         outputView.printPresents(presents);
-
 
         List<Discount> totalDiscount = getTotalDiscount(orders, nowDate);
 
