@@ -15,8 +15,11 @@ public class EventTotalAmountPresentPolicyManager extends EventPolicyManager<Eve
     public Presents applyAll(TotalOrderAmount totalOrderAmount) {
         return new Presents(
                 eventPolicies.stream()
-                .flatMap((policy) -> policy.findPresents(totalOrderAmount).stream())
-                .toList()
+                        .map((policy) -> policy.findPresents(totalOrderAmount))
+                        .filter((presents -> !presents.isEmpty()))
+                        .flatMap((presents -> presents.stream()))
+                        .toList()
         );
     }
+
 }
