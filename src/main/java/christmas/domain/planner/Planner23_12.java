@@ -8,7 +8,8 @@ import christmas.domain.benefit.Discount;
 import christmas.domain.benefit.Presents;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.badge.ChristmasEventBadgePolicy;
-import christmas.domain.policy.badge.EventTotalAmountBadgePolicyManager;
+import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyManager;
+import christmas.domain.policy.discount.EventDateAndOrderDiscountPolicyManager;
 import christmas.domain.policy.discount.date.*;
 import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
 import christmas.domain.policy.present.ChristmasChampagnePresentPolicy;
@@ -34,7 +35,9 @@ public class Planner23_12 implements EventPlanner {
     private final EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager;
     private final EventDateDiscountPolicyManager eventDateDiscountPolicyManager;
     private final EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager;
-    private final EventTotalAmountBadgePolicyManager eventTotalAmountBadgePolicyManager;
+    private final EventTotalBenefitAmountBadgePolicyManager eventTotalBenefitAmountBadgePolicyManager;
+
+    private final EventDateAndOrderDiscountPolicyManager eventDateAndOrderDiscountPolicyManager;
 
     public Planner23_12(
             OutputView outputView,
@@ -42,14 +45,16 @@ public class Planner23_12 implements EventPlanner {
             EventOrderDiscountPolicyManager eventOrderDiscountPolicyManager,
             EventDateDiscountPolicyManager eventDateDiscountPolicyManager,
             EventTotalAmountPresentPolicyManager eventTotalAmountPresentPolicyManager,
-            EventTotalAmountBadgePolicyManager eventTotalAmountBadgePolicyManager
+            EventTotalBenefitAmountBadgePolicyManager eventTotalBenefitAmountBadgePolicyManager,
+            EventDateAndOrderDiscountPolicyManager eventDateAndOrderDiscountPolicyManager
     ) {
         this.outputView = outputView;
         this.inputView = inputView;
         this.eventOrderDiscountPolicyManager = eventOrderDiscountPolicyManager;
         this.eventDateDiscountPolicyManager = eventDateDiscountPolicyManager;
         this.eventTotalAmountPresentPolicyManager = eventTotalAmountPresentPolicyManager;
-        this.eventTotalAmountBadgePolicyManager = eventTotalAmountBadgePolicyManager;
+        this.eventTotalBenefitAmountBadgePolicyManager = eventTotalBenefitAmountBadgePolicyManager;
+        this.eventDateAndOrderDiscountPolicyManager = eventDateAndOrderDiscountPolicyManager;
     }
 
     @Override
@@ -62,10 +67,12 @@ public class Planner23_12 implements EventPlanner {
         outputView.pintOrderMenus(OrdersResponse.from(orders));
 
         TotalOrderAmount totalOrderPriceAmount = orders.makeTotal();
-        outputView.printOrderAmount(totalOrderPriceAmount);
+        outputView.printOrderPriceAmount(totalOrderPriceAmount);
+
         EventTotalAmountPresentPolicy presentPolicy = new ChristmasChampagnePresentPolicy();
         Presents presents = presentPolicy.findPresents(totalOrderPriceAmount);
         outputView.printPresents(presents);
+
 
         List<Discount> totalDiscount = getTotalDiscount(orders, nowDate);
 

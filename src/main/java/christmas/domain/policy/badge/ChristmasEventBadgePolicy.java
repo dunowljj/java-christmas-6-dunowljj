@@ -4,7 +4,7 @@ import christmas.domain.TotalBenefitAmount;
 
 import static christmas.domain.policy.badge.BadgeRank.*;
 
-public class ChristmasEventBadgePolicy implements EventBadgePolicy<TotalBenefitAmount, BadgeRank> {
+public class ChristmasEventBadgePolicy implements EventTotalBenefitAmountBadgePolicy {
 
     @Override
     public BadgeRank findBadges(TotalBenefitAmount totalBenefitAmount) {

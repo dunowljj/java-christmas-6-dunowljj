@@ -2,12 +2,14 @@ package christmas.config;
 
 import christmas.domain.planner.EventPlanner;
 import christmas.domain.planner.Planner23_12;
-import christmas.domain.policy.badge.EventTotalAmountBadgePolicy;
-import christmas.domain.policy.badge.EventTotalAmountBadgePolicyManager;
-import christmas.domain.policy.discount.date.EventDateDiscountPolicy;
-import christmas.domain.policy.discount.date.EventDateDiscountPolicyManager;
+import christmas.domain.policy.badge.ChristmasEventBadgePolicy;
+import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicy;
+import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyManager;
+import christmas.domain.policy.discount.EventDateAndOrderDiscountPolicyManager;
+import christmas.domain.policy.discount.date.*;
 import christmas.domain.policy.discount.order.EventOrderDiscountPolicy;
 import christmas.domain.policy.discount.order.EventOrderDiscountPolicyManager;
+import christmas.domain.policy.present.ChristmasChampagnePresentPolicy;
 import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
 import christmas.domain.policy.present.EventTotalAmountPresentPolicyManager;
 import christmas.view.InputView;
@@ -28,7 +30,8 @@ public class PlannerConfig {
         return new Planner23_12(
                 outputView23_12(), inputView23_12(),
                 eventOrderPolicyManager(), eventDateDiscountManger(),
-                eventPresentPolicyManger(), eventBadgePolicyManger()
+                eventPresentPolicyManger(), eventBadgePolicyManger(),
+                eventDateAndOrderDiscountPolicyManager()
         );
     }
 
@@ -52,24 +55,32 @@ public class PlannerConfig {
         return new EventTotalAmountPresentPolicyManager(eventPresentPolicies());
     }
 
-    private EventTotalAmountBadgePolicyManager eventBadgePolicyManger() {
-        return new EventTotalAmountBadgePolicyManager(eventBadgePolicies());
+    private EventTotalBenefitAmountBadgePolicyManager eventBadgePolicyManger() {
+        return new EventTotalBenefitAmountBadgePolicyManager(eventBadgePolicies());
     }
 
+    private EventDateAndOrderDiscountPolicyManager eventDateAndOrderDiscountPolicyManager() {
+        return new EventDateAndOrderDiscountPolicyManager(eventDateAndOrderDiscountPolicies());
+    }
     private List<EventOrderDiscountPolicy> eventOrderPolicies() {
         return List.of();
     }
 
+
+    private List<EventDateAndOrderDiscountPolicy> eventDateAndOrderDiscountPolicies() {
+        return List.of(new ChristmasWeekendDiscountPolicy(), new ChristmasWeekDayDiscountPolicy());
+    }
+
     private List<EventDateDiscountPolicy> eventDateDiscountPolicies() {
-        return List.of();
+        return List.of(new ChristmasDdayDiscountPolicy(), new ChristmasSpecialDiscountPolicy());
     }
 
     private List<EventTotalAmountPresentPolicy> eventPresentPolicies() {
-        return List.of();
+        return List.of(new ChristmasChampagnePresentPolicy());
     }
 
-    private List<EventTotalAmountBadgePolicy> eventBadgePolicies() {
-        return List.of();
+    private List<EventTotalBenefitAmountBadgePolicy> eventBadgePolicies() {
+        return List.of(new ChristmasEventBadgePolicy());
     }
 
     public EventPlanner injectPlanner() {
