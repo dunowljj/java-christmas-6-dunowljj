@@ -90,12 +90,12 @@ public class Planner23_12 implements EventPlanner {
     }
 
     private static List<String> getBenefitNames(List<Discount> totalDiscount) {
-        return totalDiscount.stream().map((discount -> discount.getName()))
+        return totalDiscount.stream().map((discount -> discount.name()))
                 .toList();
     }
 
     private static Long getTotalDiscountPrice(List<Discount> totalDiscount) {
-        return totalDiscount.stream().map((discount -> discount.getAmount()))
+        return totalDiscount.stream().map((discount -> discount.amount()))
                 .reduce(Long::sum).orElse(0L);
     }
 
@@ -116,33 +116,34 @@ public class Planner23_12 implements EventPlanner {
 
     private void getDdayDiscount(List<Discount> discounts, LocalDate nowDate) {
         ChristmasDdayDiscountPolicy christmasDdayDiscountPolicy = new ChristmasDdayDiscountPolicy();
-        Long discount = christmasDdayDiscountPolicy.calculateDiscount(nowDate);
-        if (discount != 0L) {
-            discounts.add(new Discount("크리스마스 디데이 할인", discount));
+        Discount discount = christmasDdayDiscountPolicy.calculateDiscount(nowDate);
+        if (discount.isApplied()) {
+            discounts.add(discount);
         }
     }
 
     private void getSpecialDiscount(List<Discount> discounts, LocalDate nowDate) {
         ChristmasSpecialDiscountPolicy christmasSpecialDiscountPolicy = new ChristmasSpecialDiscountPolicy();
-        Long discount = christmasSpecialDiscountPolicy.calculateDiscount(nowDate);
-        if (discount != 0L) {
-            discounts.add(new Discount("특별 할인", discount));
+        Discount discount = christmasSpecialDiscountPolicy.calculateDiscount(nowDate);
+        if (discount.isApplied()) {
+            discounts.add(discount);
         }
     }
 
     private void getWeekDayDiscount(List<Discount> discounts, Orders orders, LocalDate nowDate) {
         ChristmasWeekDayDiscountPolicy christmasWeekDayDiscountPolicy = new ChristmasWeekDayDiscountPolicy();
-        Long discount = christmasWeekDayDiscountPolicy.calculateDiscount(orders, nowDate);
-        if (discount != 0L) {
-            discounts.add(new Discount("평일 할인", discount));
+        Discount discount = christmasWeekDayDiscountPolicy.calculateDiscount(orders, nowDate);
+        if (discount.isApplied()) {
+            discounts.add(discount);
+
         }
     }
 
     private void getWeekendDiscount(List<Discount> discounts, Orders orders, LocalDate nowDate) {
         ChristmasWeekendDiscountPolicy christmasWeekendDiscountPolicy = new ChristmasWeekendDiscountPolicy();
-        Long discount = christmasWeekendDiscountPolicy.calculateDiscount(orders, nowDate);
-        if (discount != 0L) {
-            discounts.add(new Discount("주말 할인", discount));
+        Discount discount = christmasWeekendDiscountPolicy.calculateDiscount(orders, nowDate);
+        if (discount.isApplied()) {
+            discounts.add(discount);
         }
     }
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 
+import static christmas.domain.policy.discount.date.ChristmasSpecialDiscountPolicy.*;
 import static christmas.domain.policy.discount.date.ChristmasSpecialDiscountPolicy.DISCOUNT_AMOUNT;
 import static christmas.domain.policy.discount.date.ChristmasSpecialDiscountPolicy.SPECIAL_DATES;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +20,10 @@ public class ChristmasSpecialDiscountPolicyTest {
         //when, then
         SPECIAL_DATES.stream()
                 .map(discountPolicy::calculateDiscount)
-                .forEach((result) -> assertThat(result).isEqualTo(DISCOUNT_AMOUNT));
+                .forEach((result) -> {
+                    assertThat(result.amount()).isEqualTo(DISCOUNT_AMOUNT);
+                    assertThat(result.name()).isEqualTo(NAME);
+                });
     }
 
     @Test
@@ -34,6 +38,9 @@ public class ChristmasSpecialDiscountPolicyTest {
         //when, then
         normalDates.stream()
                 .map(discountPolicy::calculateDiscount)
-                .forEach((result) -> assertThat(result).isEqualTo(0));
+                .forEach((result) -> {
+                    assertThat(result.amount()).isEqualTo(NO_DISCOUNT);
+                    assertThat(result.name()).isEqualTo(NAME);
+                });
     }
 }
