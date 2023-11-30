@@ -11,6 +11,7 @@ import static christmas.util.DateUtils.calculateDaysBetween;
 public class ChristmasDdayDiscountPolicy implements EventDateDiscountPolicy {
 
     public final String NAME = "크리스마스 디데이 할인";
+    public static final int NO_DISCOUNT = 0;
     public static final int START_MONEY = 1000;
     public static final int CHRISTMAS_DAY = 25;
     public static final int DISCOUNT_PER_DAY = 100;
@@ -22,7 +23,7 @@ public class ChristmasDdayDiscountPolicy implements EventDateDiscountPolicy {
     @Override
     public Discount calculateDiscount(LocalDate localDate) {
         if (localDate.getDayOfMonth() > CHRISTMAS_DAY) {
-            return new Discount(NAME, START_MONEY);
+            return new Discount(NAME, NO_DISCOUNT);
         }
 
         long dayDiff = calculateDaysBetween(EVENT_START_DATE, localDate);

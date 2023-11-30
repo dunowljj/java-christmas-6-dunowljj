@@ -55,14 +55,14 @@ public class OutputView23_12 implements OutputView {
     @Override
     public void printPresents(Presents presents) {
         System.out.println(title(TITLE_OF_PRESENT_MENU));
-        System.out.println(buildPresentsMessage(presents));
+        System.out.print(buildPresentsMessage(presents));
         System.out.println();
     }
 
     @Override
     public void printTotalDetails(List<Discount> totalDiscount) {
         System.out.println(title("혜택 내역"));
-        System.out.println(buildTotalDetails(totalDiscount));
+        System.out.print(buildTotalDetails(totalDiscount));
         System.out.println();
     }
 
