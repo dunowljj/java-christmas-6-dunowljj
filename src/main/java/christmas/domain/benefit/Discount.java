@@ -4,6 +4,8 @@ import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
 
 import java.util.Objects;
 
+import static christmas.view.util.FormatUtils.toKoreaMoneyFormat;
+
 public record Discount(String name, long amount) {
 
     public boolean isApplied() {
@@ -32,6 +34,6 @@ public record Discount(String name, long amount) {
 
     @Override
     public String toString() {
-        return String.format("%s: -%d원", name, amount);
+        return String.format("%s: -%s원", name, toKoreaMoneyFormat(amount));
     }
 }
