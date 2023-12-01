@@ -2,8 +2,8 @@ package christmas.domain.policy.badge;
 
 import christmas.domain.TotalBenefitAmount;
 
-public interface EventTotalBenefitAmountBadgePolicy extends EventBadgePolicy<TotalBenefitAmount, BadgeRank> {
+public interface EventTotalBenefitAmountBadgePolicy extends EventBadgePolicy<TotalBenefitAmount, Badge> {
 
     @Override
-    BadgeRank findBadges(TotalBenefitAmount totalBenefitAmount);
+    Badge findBadges(TotalBenefitAmount totalBenefitAmount);
 }

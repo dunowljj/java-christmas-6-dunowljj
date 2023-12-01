@@ -4,7 +4,8 @@ import christmas.constants.ErrorMessage;
 import christmas.domain.Day;
 import christmas.domain.TotalBenefitAmount;
 import christmas.domain.TotalOrderAmount;
-import christmas.domain.benefit.Discount;
+import christmas.domain.benefit.Badges;
+import christmas.domain.benefit.Discounts;
 import christmas.domain.benefit.Presents;
 import christmas.domain.order.Orders;
 import christmas.domain.policy.badge.EventTotalBenefitAmountBadgePolicyApplier;
@@ -19,8 +20,6 @@ import christmas.view.OutputView;
 import christmas.view.util.Catcher;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static christmas.constants.Planner23_12Config.THIS_MONTH;
 import static christmas.constants.Planner23_12Config.THIS_YEAR;
@@ -33,7 +32,6 @@ public class Planner23_12 implements EventPlanner {
     private final EventDateDiscountPolicyApplier eventDateDiscountPolicyApplier;
     private final EventTotalAmountPresentPolicyApplier eventTotalAmountPresentPolicyApplier;
     private final EventTotalBenefitAmountBadgePolicyApplier eventTotalBenefitAmountBadgePolicyApplier;
-
     private final EventDateAndOrderDiscountPolicyApplier eventDateAndOrderDiscountPolicyApplier;
 
     public Planner23_12(
@@ -64,27 +62,18 @@ public class Planner23_12 implements EventPlanner {
         outputView.pintOrderMenus(OrdersResponse.from(orders));
 
         TotalOrderAmount totalOrderPriceAmount = orders.makeTotal();
-        outputView.printOrderPriceAmount(totalOrderPriceAmount);
+        outputView.printPriceBeforeDiscount(totalOrderPriceAmount);
 
-        Presents presents = eventTotalAmountPresentPolicyApplier.applyAll(totalOrderPriceAmount);
+        Presents presents = findPresents(totalOrderPriceAmount);
         outputView.printPresents(presents);
 
-        List<Discount> totalDiscount = getTotalDiscount(orders, nowDate);
+        Discounts totalDiscount = calculateTotalDiscount(orders, nowDate, presents);
 
-        long presentsBenefitPrice = presents.getBenefitPrice();
-        if (!presents.isEmpty()) {
-            totalDiscount.add(new Discount("증정 이벤트", presentsBenefitPrice));
-        }
-
-        long totalDiscountPrice= getTotalDiscountPrice(totalDiscount);
-        List<String> benefitNames = getBenefitNames(totalDiscount);
-
-        TotalBenefitAmount totalBenefitAmount = new TotalBenefitAmount(totalDiscountPrice + presentsBenefitPrice);
-
+        TotalBenefitAmount totalBenefitAmount = totalDiscount.getTotalBenefitAmount();
+        outputView.printBenefitDetails(totalDiscount);
         outputView.printTotalBenefitAmount(totalBenefitAmount);
-        outputView.printTotalDetails(totalDiscount);
-        outputView.printAfterDiscount(totalOrderPriceAmount, totalDiscountPrice);
-        outputView.printEventBadge(eventTotalBenefitAmountBadgePolicyApplier.applyAll(totalBenefitAmount));
+        outputView.printPriceAfterDiscount(totalOrderPriceAmount, totalDiscount.getTotalDiscountPrice());
+        outputView.printEventBadges(getBadges(totalBenefitAmount));
     }
 
     private Day getVisitDay() {
@@ -94,32 +83,30 @@ public class Planner23_12 implements EventPlanner {
         );
     }
 
+    private LocalDate getNowDate(Day visitDay) {
+        return LocalDate.of(THIS_YEAR.getValue(), THIS_MONTH.getValue(), visitDay.getDay());
+    }
+
     private Orders getOrders() {
         return Catcher.retryWhenException(
                 ErrorMessage.INVALID_ORDER, inputView::readOrders
         );
     }
 
-    private LocalDate getNowDate(Day visitDay) {
-        return LocalDate.of(THIS_YEAR.getValue(), THIS_MONTH.getValue(), visitDay.getDay());
+    private Presents findPresents(TotalOrderAmount totalOrderPriceAmount) {
+        return eventTotalAmountPresentPolicyApplier.applyAll(totalOrderPriceAmount);
     }
 
-    private static List<String> getBenefitNames(List<Discount> totalDiscount) {
-        return totalDiscount.stream().map((discount -> discount.name()))
-                .toList();
-    }
-
-    private static Long getTotalDiscountPrice(List<Discount> totalDiscount) {
-        return totalDiscount.stream().map((discount -> discount.amount()))
-                .reduce(Long::sum).orElse(0L);
-    }
-
-    private List<Discount> getTotalDiscount(Orders orders, LocalDate nowDate) {
-        List<Discount> discounts = new ArrayList<>();
+    private Discounts calculateTotalDiscount(Orders orders, LocalDate nowDate, Presents presents) {
+        Discounts discounts = new Discounts();
 
         discounts.addAll(eventDateDiscountPolicyApplier.applyAll(nowDate));
         discounts.addAll(eventDateAndOrderDiscountPolicyApplier.applyAll(orders, nowDate));
-
+        discounts.addPresentDiscount(presents);
         return discounts;
+    }
+
+    private Badges getBadges(TotalBenefitAmount totalBenefitAmount) {
+        return eventTotalBenefitAmountBadgePolicyApplier.applyAll(totalBenefitAmount);
     }
 }

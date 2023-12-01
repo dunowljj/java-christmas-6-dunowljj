@@ -1,6 +1,7 @@
 package christmas.domain.policy.badge;
 
 import christmas.domain.TotalBenefitAmount;
+import christmas.domain.benefit.Badges;
 import christmas.domain.policy.EventPolicyManager;
 
 import java.util.List;
@@ -11,9 +12,11 @@ public class EventTotalBenefitAmountBadgePolicyApplier extends EventPolicyManage
         super(eventPolicies);
     }
 
-    public List<BadgeRank> applyAll(TotalBenefitAmount totalBenefitAmount) {
-        return eventPolicies.stream()
-                .map((policy) -> policy.findBadges(totalBenefitAmount))
-                .toList();
+    public Badges applyAll(TotalBenefitAmount totalBenefitAmount) {
+        return new Badges(
+                eventPolicies.stream()
+                        .map((policy) -> policy.findBadges(totalBenefitAmount))
+                        .toList()
+        );
     }
 }

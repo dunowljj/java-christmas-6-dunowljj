@@ -2,13 +2,11 @@ package christmas.view;
 
 import christmas.domain.TotalBenefitAmount;
 import christmas.domain.TotalOrderAmount;
-import christmas.domain.benefit.Discount;
+import christmas.domain.benefit.Badges;
+import christmas.domain.benefit.Discounts;
 import christmas.domain.benefit.Presents;
-import christmas.domain.policy.badge.BadgeRank;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
-
-import java.util.List;
 
 import static christmas.constants.Planner23_12Config.THIS_MONTH;
 import static christmas.view.util.FormatUtils.toKoreaMoneyFormat;
@@ -46,7 +44,7 @@ public class OutputView23_12 implements OutputView {
     }
 
     @Override
-    public void printOrderPriceAmount(TotalOrderAmount totalOrderAmount) {
+    public void printPriceBeforeDiscount(TotalOrderAmount totalOrderAmount) {
         System.out.println(title(TITLE_OF_TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT));
         System.out.println(totalOrderAmount);
         System.out.println();
@@ -60,7 +58,7 @@ public class OutputView23_12 implements OutputView {
     }
 
     @Override
-    public void printTotalDetails(List<Discount> totalDiscount) {
+    public void printBenefitDetails(Discounts totalDiscount) {
         System.out.println(title("혜택 내역"));
         System.out.print(buildTotalDetails(totalDiscount));
         System.out.println();
@@ -73,7 +71,7 @@ public class OutputView23_12 implements OutputView {
         System.out.println();
     }
     @Override
-    public void printAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice) {
+    public void printPriceAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice) {
         System.out.println(title("할인 후 예상 결제 금액"));
         long expect = totalOrderPriceAmount.getTotalPrice() - totalDiscountPrice;
         System.out.println(String.format("%s원", toKoreaMoneyFormat(expect)));
@@ -81,9 +79,9 @@ public class OutputView23_12 implements OutputView {
     }
 
     @Override
-    public void printEventBadge(List<BadgeRank> badges) {
+    public void printEventBadges(Badges Badges) {
         System.out.println(title("12월 이벤트 배지"));
-        System.out.println(buildBadgesMessage(badges));
+        System.out.println(buildBadgesMessage(Badges));
     }
 
     private StringBuilder buildPresentsMessage(Presents presents) {
@@ -93,16 +91,16 @@ public class OutputView23_12 implements OutputView {
         return result;
     }
 
-    private StringBuilder buildTotalDetails(List<Discount> discounts) {
+    private StringBuilder buildTotalDetails(Discounts discounts) {
         StringBuilder result = new StringBuilder();
         discounts.stream()
                 .forEach(((discount) -> result.append(discount).append("\n")));
         return result;
     }
 
-    private StringBuilder buildBadgesMessage(List<BadgeRank> badges) {
+    private StringBuilder buildBadgesMessage(Badges Badges) {
         StringBuilder result = new StringBuilder();
-        badges.stream()
+        Badges.stream()
                 .forEach(((badgeRank) -> result.append(badgeRank).append("\n")));
         return result;
     }

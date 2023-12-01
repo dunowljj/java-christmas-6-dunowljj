@@ -2,13 +2,11 @@ package christmas.view;
 
 import christmas.domain.TotalBenefitAmount;
 import christmas.domain.TotalOrderAmount;
-import christmas.domain.benefit.Discount;
+import christmas.domain.benefit.Badges;
+import christmas.domain.benefit.Discounts;
 import christmas.domain.benefit.Presents;
-import christmas.domain.policy.badge.BadgeRank;
 import christmas.dto.response.DayResponse;
 import christmas.dto.response.OrdersResponse;
-
-import java.util.List;
 
 public interface OutputView {
 
@@ -18,15 +16,15 @@ public interface OutputView {
 
     void announceCanPreviewBenefits(DayResponse dayResponse);
 
-    void printOrderPriceAmount(TotalOrderAmount totalOrderAmount);
+    void printPriceBeforeDiscount(TotalOrderAmount totalOrderAmount);
 
     void printPresents(Presents presents);
 
-    void printTotalDetails(List<Discount> totalDiscount);
+    void printBenefitDetails(Discounts totalDiscount);
 
-    void printAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice);
+    void printPriceAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice);
 
-    void printEventBadge(List<BadgeRank> badges);
+    void printEventBadges(Badges Badges);
 
     void printTotalBenefitAmount(TotalBenefitAmount totalBenefitAmount);
 }

@@ -34,9 +34,4 @@ public class Presents {
     public boolean isEmpty() {
         return presents.isEmpty();
     }
-
-
-//    public List<Present> getPresents() {
-//        return presents;
-//    }
 }

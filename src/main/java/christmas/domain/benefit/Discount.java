@@ -1,8 +1,18 @@
 package christmas.domain.benefit;
 
+import christmas.domain.policy.present.EventTotalAmountPresentPolicy;
+
 import java.util.Objects;
 
 public record Discount(String name, long amount) {
+
+    public boolean isApplied() {
+        return amount != 0L;
+    }
+
+    public boolean isPresentEvent() {
+        return this.name.equals(EventTotalAmountPresentPolicy.NAME);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -24,9 +34,4 @@ public record Discount(String name, long amount) {
     public String toString() {
         return String.format("%s: -%d원", name, amount);
     }
-
-    public boolean isApplied() {
-        return amount != 0L;
-    }
-
 }

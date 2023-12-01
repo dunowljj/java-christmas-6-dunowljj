@@ -1,6 +1,6 @@
 package christmas.domain.policy.badge;
 
-public enum BadgeRank {
+public enum Badge {
 
     STAR("별", 20_000),
     TREE("트리",10_000),
@@ -11,7 +11,7 @@ public enum BadgeRank {
     private final long threshold;
     private final String name;
 
-    BadgeRank(String name,long threshold) {
+    Badge(String name, long threshold) {
         this.name = name;
         this.threshold = threshold;
     }
