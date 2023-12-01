@@ -81,9 +81,9 @@ public class OutputView23_12 implements OutputView {
     }
 
     @Override
-    public void printEventBadge(BadgeRank badge) {
+    public void printEventBadge(List<BadgeRank> badges) {
         System.out.println(title("12월 이벤트 배지"));
-        System.out.println(badge.getName());
+        System.out.println(buildBadgesMessage(badges));
     }
 
     private StringBuilder buildPresentsMessage(Presents presents) {
@@ -97,6 +97,13 @@ public class OutputView23_12 implements OutputView {
         StringBuilder result = new StringBuilder();
         discounts.stream()
                 .forEach(((discount) -> result.append(discount).append("\n")));
+        return result;
+    }
+
+    private StringBuilder buildBadgesMessage(List<BadgeRank> badges) {
+        StringBuilder result = new StringBuilder();
+        badges.stream()
+                .forEach(((badgeRank) -> result.append(badgeRank).append("\n")));
         return result;
     }
 

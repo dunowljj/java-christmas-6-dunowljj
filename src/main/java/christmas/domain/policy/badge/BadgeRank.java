@@ -23,4 +23,9 @@ public enum BadgeRank {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

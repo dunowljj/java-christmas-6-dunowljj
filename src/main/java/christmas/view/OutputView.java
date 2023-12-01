@@ -26,7 +26,7 @@ public interface OutputView {
 
     void printAfterDiscount(TotalOrderAmount totalOrderPriceAmount, long totalDiscountPrice);
 
-    void printEventBadge(BadgeRank badges);
+    void printEventBadge(List<BadgeRank> badges);
 
     void printTotalBenefitAmount(TotalBenefitAmount totalBenefitAmount);
 }
